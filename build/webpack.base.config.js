@@ -4,6 +4,8 @@
 
 const path = require('path')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
+const  { VueLoaderPlugin }  = require('vue-loader/')
+
 const resolve = file => path.resolve(__dirname, file)
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -78,7 +80,7 @@ module.exports = {
     ]
   },
   plugins: [
-   
+    new VueLoaderPlugin(),
     new FriendlyErrorsWebpackPlugin()
   ]
 }
