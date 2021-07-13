@@ -16,10 +16,6 @@ let onReady = null;
 
 const isProd = process.env.NODE_ENV === 'production'; // 是否是生产环境
 
-
-
-
-
 if (isProd) {
     const serverBundle = require('./dist/vue-ssr-server-bundle.json')
     const template = fs.readFileSync('./index.template.html', 'utf-8')
@@ -28,7 +24,6 @@ if (isProd) {
 } else {
     // setupDevServer 返回一个Promise
     onReady = setupDevServer(server, (serverBundle, template, clientManifest) => {
-        console.log('callback')
         renderer = createBundleRenderer(serverBundle, {
             template,
             clientManifest
@@ -41,8 +36,6 @@ if (isProd) {
 
 const render = async(req, res) => {
     try {
-        console.log("render")
-        console.log(renderer)
         const html = await renderer.renderToString({
             title: '拉勾教育',
             meta: `
@@ -53,7 +46,6 @@ const render = async(req, res) => {
         res.setHeader('Content-Type', 'text/html; charset=utf8')
         res.end(html)
     } catch (err) {
-        console.log(err)
         res.status(500).end('Internal Server Error.')
     }
 }
@@ -66,11 +58,10 @@ const render = async(req, res) => {
 server.get('*', isProd ?
     render :
     async(req, res) => {
-        // 等待有了 Renderer 渲染器以后，调用 render 进行渲染 ??会不会每次都进入这个Promise
-
+        // 等待有了 Renderer 渲染器以后，调用 render 进行渲染 
         await onReady
         render(req, res)
     }
 )
 
-server.listen(3004, () => { console.log('server running at port 3000.') })
+server.listen(3000, () => { console.log('server running at port 3000.') })

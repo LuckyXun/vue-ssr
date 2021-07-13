@@ -1,14 +1,45 @@
 <!--
  * @Author: XunL
  * @Date: 2021-07-09 01:08:46
- * @LastEditTime: 2021-07-12 18:07:18
+ * @LastEditTime: 2021-07-13 16:37:54
  * @Description: file content
 -->
 <template>
-  <!-- 客户端渲染的入口节点 -->
-  <div id="app"><h1>测111111试11xxx SS111R</h1></div>
+  <div id="app">
+    <ul>
+      <li>
+        <router-link to="/">Home</router-link>
+      </li>
+      <li>
+        <router-link to="/about">About</router-link>
+      </li>
+      <li>
+        <router-link to="/posts">Posts</router-link>
+      </li>
+    </ul>
+
+    <!-- 路由出口 -->
+    <router-view/>
+  </div>
 </template>
+
 <script>
-export default { name: "App" };
+export default {
+  name: 'App',
+  data () {
+    return {
+      message: '拉勾教育'
+    }
+  },
+  methods: {
+    onClick () {
+      console.log('Hello World!')
+    }
+  }
+}
 </script>
-<style></style>
+
+<style>
+
+</style>
+
